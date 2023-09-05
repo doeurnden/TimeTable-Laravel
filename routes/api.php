@@ -42,6 +42,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //get room api
 Route::prefix('rooms')->group(function () {
     Route::get('/get_room', [RoomController::class, 'get_room']);
+    Route::post('/insert_room_into_timetable_slot/{id}',[RoomController::class,'insert_room_into_timetable_slot']);
 });
 
 //get lecturer
