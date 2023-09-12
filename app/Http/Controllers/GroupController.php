@@ -23,7 +23,7 @@ class GroupController extends Controller
         ->orderBy('groups.code')
         ->get();
 
-    return response()->json(['groups' => $groups]);
+    return response()->json($groups);
 }
 
 }
