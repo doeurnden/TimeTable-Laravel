@@ -5,7 +5,6 @@ use App\Http\Controllers\DegreeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DepOptionController;
 use App\Http\Controllers\GradeController;
-use App\Http\Controllers\GroupController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\RoomController;
@@ -102,11 +101,11 @@ Route::prefix('courses')->group(function(){
 
 
 // API for provide data to Sidebar
-Route::get('/get_all_academicYears',[AcademicYearController::class,'index']);
-Route::get('/get_all_departments',[DepartmentController::class,'index']);
-Route::get('/get_all_degrees',[DegreeController::class,'index']);
-Route::get('/get_all_depOptions',[DepOptionController::class,'index']);
-Route::get('/get_all_grades',[GradeController::class,'index']);
-Route::get('/get_all_semesters',[SemesterController::class,'index']);
-Route::get('/get_all_weeks',[WeekController::class,'index']);
-Route::get('/get_all_groups',[GroupController::class,'index']);
+Route::get('/get-all-AcademicYears',[AcademicYearController::class,'index']);
+Route::get('/get-all-Departments',[DepartmentController::class,'index']);
+Route::get('/get-all-Degrees',[DegreeController::class,'index']);
+Route::get('/get-all-DepOptions',[DepOptionController::class,'index']);
+Route::get('/get-all-Grades',[GradeController::class,'index']);
+Route::get('/get-all-Semesters',[SemesterController::class,'index']);
+Route::get('/get-all-Weeks',[WeekController::class,'index']);
+Route::get('/get-all-Groups',[GroupController::class,'index']);
