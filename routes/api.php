@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\AcademicYearController;
 use App\Http\Controllers\DegreeController;
 use App\Http\Controllers\DepartmentController;
@@ -109,3 +109,4 @@ Route::get('/get_all_grades',[GradeController::class,'index']);
 Route::get('/get_all_semesters',[SemesterController::class,'index']);
 Route::get('/get_all_weeks',[WeekController::class,'index']);
 
+Route::get('/get_all_groups', [GroupController::class, 'getGroups']);
