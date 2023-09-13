@@ -26,15 +26,8 @@ class GroupController extends Controller
             if(isset($request->semester_id)){
                 $groups->where('sa.semester_id',$request->semester_id);
             }
-            
-            // Select all columns from the "groups" table
-            // ->where('sa.academic_year_id', $request->academic_year_id)
-            // ->where('sa.grade_id', 4)
-            // ->where('sa.department_id', 4)
-            // ->where('ga.semester_id', 2)
-            // ->whereNull('ga.department_id')
-            // ->groupBy('groups.id', /* Add all other columns from the "groups" table here */)
             $groups->whereNull('ga.department_id')
+            ->groupBy('groups.id')
             ->orderBy('groups.code');
             $query = $groups->get();
 
