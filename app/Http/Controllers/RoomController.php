@@ -17,20 +17,18 @@ class RoomController extends Controller
             ->orderBy('building_id', 'asc')
             ->get();
     }
+    public function get_room_by_id($id){
+        $Room = $this->get_room();
+        $filteredRooms = $Room->where('id', $id);
+
+        return $filteredRooms->first();
+    }
 
     public function insert_room_into_timetable_slot($id)
     {
-        // return Room::select('id', 'name','building_id')
-        //     ->with('building:id,code')
-        //     ->orderBy('building_id', 'asc')
-        //     ->find($id);
-
         $allRooms = $this->get_room();
-
-        // Use additional conditions to filter the rooms
         $filteredRooms = $allRooms->where('id', $id);
 
-        // Return the filtered room(s)
         return $filteredRooms->first();
     }
 }

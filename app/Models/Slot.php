@@ -10,7 +10,7 @@ class Slot extends Model
     use HasFactory;
     protected $table = 'slots';
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    // public $timestamps = false;
 
     protected $fillable = [
         'time_tp',

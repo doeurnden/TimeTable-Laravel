@@ -43,6 +43,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('rooms')->group(function () {
     Route::get('/get_room', [RoomController::class, 'get_room']);
     Route::post('/insert_room_into_timetable_slot/{id}',[RoomController::class,'insert_room_into_timetable_slot']);
+    Route::get('/get_room_by_id/{id}',[RoomController::class, 'get_room_by_id']);
 });
 
 //get lecturer
@@ -53,6 +54,8 @@ Route::prefix('employees')->group(function(){
 //get course
 Route::prefix('courses')->group(function(){
     Route::get('/get_course',[CourseController::class, 'get_course']);
+    Route::get('/get_course_id/{id}',[CourseController::class, 'get_course_id']);
+    Route::get('/get_course_program',[CourseController::class, 'get_course_program']);
 });
 
 // Route::prefix('buildings')->group(function () {
@@ -71,17 +74,15 @@ Route::prefix('courses')->group(function(){
 
 // });
 
-// Route::prefix('timetables')->group(function () {
-//     Route::get('/list',[TimeTableController::class, 'list']);
-//     Route::get('/list/{id}',[TimeTableController::class, 'listByID']);
-// });
-// Route::prefix('slots')->group(function () {
-//     Route::get('/list',[SlotController::class, 'list']);
-//     Route::get('/list/{id}',[SlotController::class, 'listByID']);
-//     Route::post('/create',[SlotController::class, 'create']);
-// });
-
-
+Route::prefix('timetables')->group(function () {
+    Route::get('/get_timetable',[TimeTableController::class, 'get_timetable']);
+});
+//slot
+Route::prefix('slots')->group(function () {
+    Route::get('/get_slot_id/{id}',[SlotController::class, 'get_slot_id']);
+    Route::post('/create',[SlotController::class, 'create']);
+    Route::delete('/delete/{id}',[SlotController::class, 'delete']);
+});
 
 // Route::prefix('genders')->group(function(){
 //     Route::get('/list',[GenderController::class, 'list']);
@@ -92,9 +93,6 @@ Route::prefix('courses')->group(function(){
 //     Route::get('/get_course',[CourseAnnualController::class, 'get_course']);
 // });
 
-// Route::prefix('slots')->group(function(){
-//     Route::post('/create',[SlotController::class, 'create']);
-// });
 
 //den api end
 
