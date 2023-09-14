@@ -1,11 +1,10 @@
 <?php
-
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\AcademicYearController;
 use App\Http\Controllers\DegreeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DepOptionController;
 use App\Http\Controllers\GradeController;
-use App\Http\Controllers\GroupController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\RoomController;
@@ -109,4 +108,5 @@ Route::get('/get_all_depOptions',[DepOptionController::class,'index']);
 Route::get('/get_all_grades',[GradeController::class,'index']);
 Route::get('/get_all_semesters',[SemesterController::class,'index']);
 Route::get('/get_all_weeks',[WeekController::class,'index']);
-Route::get('/get_all_groups',[GroupController::class,'index']);
+
+Route::get('/get_all_groups', [GroupController::class, 'getGroups']);
