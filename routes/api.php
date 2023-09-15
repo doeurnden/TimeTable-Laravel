@@ -80,6 +80,7 @@ Route::prefix('timetables')->group(function () {
 Route::prefix('slots')->group(function () {
     Route::get('/get_slot_id/{id}',[SlotController::class, 'get_slot_id']);
     Route::post('/create',[SlotController::class, 'create']);
+    Route::put('/update/{id}', [SlotController::class, 'update']);
     Route::delete('/delete/{id}',[SlotController::class, 'delete']);
 });
 
