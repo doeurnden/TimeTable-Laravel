@@ -70,10 +70,10 @@ Route::prefix('courses')->group(function(){
 
 // });
 
-// Route::prefix('timetables')->group(function () {
-//     Route::get('/list',[TimeTableController::class, 'list']);
-//     Route::get('/list/{id}',[TimeTableController::class, 'listByID']);
-// });
+Route::prefix('timetables')->group(function () {
+    Route::get('/list',[TimeTableController::class, 'list']);
+    Route::get('/list/{id}',[TimeTableController::class, 'listByID']);
+});
 // Route::prefix('slots')->group(function () {
 //     Route::get('/list',[SlotController::class, 'list']);
 //     Route::get('/list/{id}',[SlotController::class, 'listByID']);
