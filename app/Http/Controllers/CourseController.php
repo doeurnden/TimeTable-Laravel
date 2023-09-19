@@ -26,7 +26,7 @@ class CourseController extends Controller
             ->orderBy('department_id', 'asc')
             ->orderBy('semester_id', 'asc')
             ->where('id',$id)
-            ->get();;
+            ->get();
 
         if($course->isEmpty()){
             return response()->json(['message'=> 'Course not found'], 404);
@@ -54,7 +54,7 @@ class CourseController extends Controller
             ->orderBy('department_id', 'asc')
             // ->where('department_id',4)
             ->orderBy('semester_id', 'asc')
-            ->get();
+            ->paginate();
     }
     public function get_course_program()
     {

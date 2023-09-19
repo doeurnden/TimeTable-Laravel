@@ -15,7 +15,7 @@ class RoomController extends Controller
             ->orderBy('id', 'asc')
             ->orderBy('room_type_id', 'asc')
             ->orderBy('building_id', 'asc')
-            ->get();
+            ->paginate();
     }
     public function get_room_by_id($id){
         $Room = $this->get_room();
