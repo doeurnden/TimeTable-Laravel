@@ -10,6 +10,17 @@ class CourseAnnual extends Model
     use HasFactory;
     protected $table = 'course_annuals';
 
+    protected $fillable = [
+        'name', 'semester_id', 'created_at', 'updated_at', 'active', 'academic_year_id',
+        'employee_id', 'create_uid', 'write_uid', 'course_id', 'score_percentage_column_1',
+        'score_percentage_column_2', 'score_percentage_column_3', 'time_tp', 'time_td',
+        'time_course', 'name_kh', 'name_en', 'name_fr', 'credit', 'department_id',
+        'degree_id', 'grade_id', 'department_option_id', 'responsible_department_id',
+        'is_counted_absence', 'is_counted_creditability', 'is_having_resitted',
+        'reference_course_id', 'competency_type_id', 'normal_scoring', 'is_allow_scoring',
+        'is_elective',
+    ];
+
     public function academicYear()
     {
         return $this->belongsTo(AcademicYear::class, 'academic_year_id');

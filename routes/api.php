@@ -42,6 +42,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('rooms')->group(function () {
     Route::get('/get_room', [RoomController::class, 'get_room']);
     Route::post('/insert_room_into_timetable_slot/{id}',[RoomController::class,'insert_room_into_timetable_slot']);
+    Route::get('/get_room_by_id/{id}',[RoomController::class, 'get_room_by_id']);
 });
 
 //get lecturer
@@ -52,6 +53,8 @@ Route::prefix('employees')->group(function(){
 //get course
 Route::prefix('courses')->group(function(){
     Route::get('/get_course',[CourseController::class, 'get_course']);
+    Route::get('/get_course_id/{id}',[CourseController::class, 'get_course_id']);
+    Route::get('/get_course_program',[CourseController::class, 'get_course_program']);
 });
 
 // Route::prefix('buildings')->group(function () {
@@ -86,14 +89,11 @@ Route::prefix('timetables')->group(function () {
 //     Route::get('/list',[GenderController::class, 'list']);
 // });
 
-//course_annual
-// Route::prefix('course_annuals')->group(function(){
-//     Route::get('/get_course',[CourseAnnualController::class, 'get_course']);
-// });
+// course_annual
+Route::prefix('course_annuals')->group(function(){
+    Route::get('/get_course_annual',[CourseAnnualController::class, 'get_course_annual']);
+});
 
-// Route::prefix('slots')->group(function(){
-//     Route::post('/create',[SlotController::class, 'create']);
-// });
 
 //den api end
 

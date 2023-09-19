@@ -12,21 +12,21 @@ class TimeTable extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    // protected $fillable = [
-    //     'academic_year_id',
-    //     'department_id',
-    //     'degree_id',
-    //     'grade_id',
-    //     'option_id',
-    //     'semester_id',
-    //     'week_id',
-    //     'group_id',
-    //     'completed',
-    //     'created_uid',
-    //     'updated_uid',
-    //     'created_at',
-    //     'updated_at',
-    // ];
+    protected $fillable = [
+        'academic_year_id',
+        'department_id',
+        'degree_id',
+        'grade_id',
+        'option_id',
+        'semester_id',
+        'week_id',
+        'group_id',
+        'completed',
+        'created_uid',
+        'updated_uid',
+        'created_at',
+        'updated_at',
+    ];
 
     // Relationships
     public function academicYear()
