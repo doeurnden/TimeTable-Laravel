@@ -19,7 +19,6 @@ class TimeTableController extends Controller
             'semester_id',
             'week_id',
             'group_id',
-        )
-            ->get();
+        )->get();
     }
 }
