@@ -47,7 +47,8 @@ class Slot extends Model
 
     public function lecturer()
     {
-        return $this->belongsTo(Lecturer::class, 'lecturer_id');
+        return $this->belongsTo(Lecturer::class, 'lect
+        urer_id');
     }
 
     public function group()
