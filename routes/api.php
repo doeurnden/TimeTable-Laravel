@@ -110,3 +110,8 @@ Route::get('/get_all_semesters',[SemesterController::class,'index']);
 Route::get('/get_all_weeks',[WeekController::class,'index']);
 
 Route::get('/get_all_groups', [GroupController::class, 'getGroups']);
+
+Route::get('/get_all_timeTable',[TimeTableController::class,'get_all_timetable']);
+Route::get('/get_one_groups/{id}',[TimeTableController::class,'get_one_timetable']);
+Route::post('/create_timetable', [TimeTableController::class, 'create']);
+Route::put('/update_TimeTable/{id}',[TimeTableController::class,'update']);
