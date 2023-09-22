@@ -77,11 +77,11 @@ Route::prefix('timetables')->group(function () {
     Route::get('/list',[TimeTableController::class, 'list']);
     Route::get('/list/{id}',[TimeTableController::class, 'listByID']);
 });
-// Route::prefix('slots')->group(function () {
-//     Route::get('/list',[SlotController::class, 'list']);
-//     Route::get('/list/{id}',[SlotController::class, 'listByID']);
-//     Route::post('/create',[SlotController::class, 'create']);
-// });
+Route::prefix('slots')->group(function () {
+    Route::get('/list',[SlotController::class, 'list']);
+    Route::get('/list/{id}',[SlotController::class, 'listByID']);
+    Route::post('/create',[SlotController::class, 'create']);
+});
 
 
 
