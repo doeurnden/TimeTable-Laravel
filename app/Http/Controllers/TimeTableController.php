@@ -97,4 +97,15 @@ class TimeTableController extends Controller
 
         return response()->json(['message'=>'TimeTable updated successfully','TimeTable'=>$timeTable]);
     }
+
+    //@Delete TimeTable
+    // public function delete($id){
+    //     $timeTable = TimeTable::destroy($id);
+    //     if($timeTable){
+    //         return response()->json(['message' => 'Timetable deleted successfully']);
+    //     }
+    //     else{
+    //         return response()->json(['message' => 'Table not found'])
+    //     }
+    // }
 }        

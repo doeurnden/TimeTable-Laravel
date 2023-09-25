@@ -59,7 +59,7 @@ class TimeTable extends Model
     //     return $this->belongsTo(Semester::class, 'semester_id');
     // }
 
-    // public function week()
+    // public function week()/
     // {
     //     return $this->belongsTo(Week::class, 'week_id');
     // }
