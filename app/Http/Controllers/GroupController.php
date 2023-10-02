@@ -20,7 +20,7 @@ class GroupController extends Controller
             if(isset($request->department_id)){
                 $groups->where('sa.department_id',$request->department_id);
             }
-            if(isset($request->grade_id)){
+            if(isset($request->grade_id)){      
                 $groups->where('sa.grade_id',$request->grade_id);
             }
             if(isset($request->semester_id)){
