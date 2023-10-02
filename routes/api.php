@@ -116,4 +116,5 @@ Route::get('/get_all_groups', [GroupController::class, 'getGroups']);
 // Route::post('/create_timetable', [TimeTableController::class, 'create']);
 // Route::put('/update_TimeTable/{id}',[TimeTableController::class,'update']);
 
+
 Route::post('/query_and_post_timetables', [TimetableController::class, 'getAll_TimeTable']);
