@@ -21,6 +21,8 @@ use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\CourseAnnualController;
 use App\Http\Controllers\GenderController;
+use App\Http\Controllers\TimeTableSlotController;
+use App\Models\TimeTableSlot;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,7 +76,7 @@ Route::prefix('courses')->group(function(){
 // });
 
 Route::prefix('timetables')->group(function () {
-    Route::get('/list',[TimeTableController::class, 'list']);
+    Route::get('/list',[TimeTableController::class, 'get_all_timetable']);
     Route::get('/list/{id}',[TimeTableController::class, 'listByID']);
 });
 
@@ -96,9 +98,8 @@ Route::prefix('slots')->group(function () {
 // course_annual
 Route::prefix('course_annuals')->group(function(){
     Route::get('/get_course_annual',[CourseAnnualController::class, 'get_course_annual']);
+    Route::get('/get_course',[CourseAnnualController::class, 'get_courses']);
 });
-
-
 //den api end
 
 
