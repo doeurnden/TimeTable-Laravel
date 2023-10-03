@@ -77,11 +77,15 @@ Route::prefix('timetables')->group(function () {
     Route::get('/list',[TimeTableController::class, 'list']);
     Route::get('/list/{id}',[TimeTableController::class, 'listByID']);
 });
-// Route::prefix('slots')->group(function () {
-//     Route::get('/list',[SlotController::class, 'list']);
-//     Route::get('/list/{id}',[SlotController::class, 'listByID']);
-//     Route::post('/create',[SlotController::class, 'create']);
-// });
+
+//On Slot
+Route::prefix('slots')->group(function () {
+    Route::post('/query_and_post_slot',[SlotController::class, 'list']);
+    Route::get('/get_slots/{id}', [SlotController::class, 'get_slot']);
+    // Route::post('/create_slot',[SlotController::class, 'create_slote']);
+    Route::put('/update_slot/{id}', [SlotController::class, 'update_slot']);
+    Route::delete('/delete_slot/{id}', [SlotController::class, 'delete_slot']);
+});
 
 
 
