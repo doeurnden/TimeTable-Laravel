@@ -16,7 +16,7 @@ class GroupController extends Controller
             ->select('groups.*');
             if(isset($request->academic_year_id)){
                 $groups->where('sa.academic_year_id',$request->academic_year_id);
-            } 
+            }
             if(isset($request->department_id)){
                 $groups->where('sa.department_id',$request->department_id);
             }
@@ -31,7 +31,7 @@ class GroupController extends Controller
             ->orderBy('groups.code');
             $query = $groups->get();
 
-        return response()->json( $query);
+        return response()->json($query);
     }
 
 }

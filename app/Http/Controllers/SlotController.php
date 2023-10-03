@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Validator;
 
 class SlotController extends Controller
 {
+    public function get_all(){
+        $slot = Slot::get();
+        return response()->json($slot);
+    }
     public function get_slot_id($id)
     {
         $slot = Slot::find($id);
@@ -70,7 +74,7 @@ class SlotController extends Controller
         if (!$slot) {
             return response()->json(['message' => 'Slot not found!'], 404);
         }
-        
+
         $slot->lecturer_id = $request->lecturer_id;
         $slot->group_id = $request->group_id;
         $slot->save();
