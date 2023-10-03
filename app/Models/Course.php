@@ -19,10 +19,10 @@ class Course extends Model
         return $this->belongsTo(DepartmentOption::class, 'department_option_id');
     }
 
-    public function responsibleDepartment()
-    {
-        return $this->belongsTo(Department::class, 'responsible_department_id');
-    }
+    // public function responsibleDepartment()
+    // {
+    //     return $this->belongsTo(Department::class, 'responsible_department_id');
+    // }
 
     public function updatedBy()
     {

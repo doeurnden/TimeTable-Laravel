@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\AcademicYearController;
 use App\Http\Controllers\DegreeController;
 use App\Http\Controllers\DepartmentController;
@@ -42,6 +42,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('rooms')->group(function () {
     Route::get('/get_room', [RoomController::class, 'get_room']);
     Route::post('/insert_room_into_timetable_slot/{id}',[RoomController::class,'insert_room_into_timetable_slot']);
+    Route::get('/get_room_by_id/{id}',[RoomController::class, 'get_room_by_id']);
 });
 
 //get lecturer
@@ -52,6 +53,8 @@ Route::prefix('employees')->group(function(){
 //get course
 Route::prefix('courses')->group(function(){
     Route::get('/get_course',[CourseController::class, 'get_course']);
+    Route::get('/get_course_id/{id}',[CourseController::class, 'get_course_id']);
+    Route::get('/get_course_program',[CourseController::class, 'get_course_program']);
 });
 
 // Route::prefix('buildings')->group(function () {
@@ -70,15 +73,19 @@ Route::prefix('courses')->group(function(){
 
 // });
 
-// Route::prefix('timetables')->group(function () {
-//     Route::get('/list',[TimeTableController::class, 'list']);
-//     Route::get('/list/{id}',[TimeTableController::class, 'listByID']);
-// });
-// Route::prefix('slots')->group(function () {
-//     Route::get('/list',[SlotController::class, 'list']);
-//     Route::get('/list/{id}',[SlotController::class, 'listByID']);
-//     Route::post('/create',[SlotController::class, 'create']);
-// });
+Route::prefix('timetables')->group(function () {
+    Route::get('/list',[TimeTableController::class, 'list']);
+    Route::get('/list/{id}',[TimeTableController::class, 'listByID']);
+});
+
+//On Slot
+Route::prefix('slots')->group(function () {
+    Route::post('/query_and_post_slot',[SlotController::class, 'list']);
+    Route::get('/get_slots/{id}', [SlotController::class, 'get_slot']);
+    // Route::post('/create_slot',[SlotController::class, 'create_slote']);
+    Route::put('/update_slot/{id}', [SlotController::class, 'update_slot']);
+    Route::delete('/delete_slot/{id}', [SlotController::class, 'delete_slot']);
+});
 
 
 
@@ -86,14 +93,11 @@ Route::prefix('courses')->group(function(){
 //     Route::get('/list',[GenderController::class, 'list']);
 // });
 
-//course_annual
-// Route::prefix('course_annuals')->group(function(){
-//     Route::get('/get_course',[CourseAnnualController::class, 'get_course']);
-// });
+// course_annual
+Route::prefix('course_annuals')->group(function(){
+    Route::get('/get_course_annual',[CourseAnnualController::class, 'get_course_annual']);
+});
 
-// Route::prefix('slots')->group(function(){
-//     Route::post('/create',[SlotController::class, 'create']);
-// });
 
 //den api end
 
@@ -101,11 +105,20 @@ Route::prefix('courses')->group(function(){
 
 
 // API for provide data to Sidebar
-Route::get('/get-all-AcademicYears',[AcademicYearController::class,'index']);
-Route::get('/get-all-Departments',[DepartmentController::class,'index']);
-Route::get('/get-all-Degrees',[DegreeController::class,'index']);
-Route::get('/get-all-DepOptions',[DepOptionController::class,'index']);
-Route::get('/get-all-Grades',[GradeController::class,'index']);
-Route::get('/get-all-Semesters',[SemesterController::class,'index']);
-Route::get('/get-all-Weeks',[WeekController::class,'index']);
-Route::get('/get-all-Groups',[GroupController::class,'index']);
+Route::get('/get_all_academicYears',[AcademicYearController::class,'index']);
+Route::get('/get_all_departments',[DepartmentController::class,'index']);
+Route::get('/get_all_degrees',[DegreeController::class,'index']);
+Route::get('/get_all_depOptions',[DepOptionController::class,'index']);
+Route::get('/get_all_grades',[GradeController::class,'index']);
+Route::get('/get_all_semesters',[SemesterController::class,'index']);
+Route::get('/get_all_weeks',[WeekController::class,'index']);
+
+Route::get('/get_all_groups', [GroupController::class, 'getGroups']);
+
+// Route::get('/get_all_timeTable',[TimeTableController::class,'get_all_timetable']);
+// Route::get('/get_one_groups/{id}',[TimeTableController::class,'get_one_timetable']);
+// Route::post('/create_timetable', [TimeTableController::class, 'create']);
+// Route::put('/update_TimeTable/{id}',[TimeTableController::class,'update']);
+
+
+Route::post('/query_and_post_timetables', [TimetableController::class, 'getAll_TimeTable']);
