@@ -41,7 +41,8 @@ class CourseAnnualController extends Controller
         ->leftJoin('departments as d','d.id','=','ca.department_id')
         ->leftJoin('degrees as dg','dg.id','=','ca.degree_id')
         ->leftJoin('grades as g','g.id', '=','ca.grade_id')
-        ->select('ca.*','d.id','d.code as d_code','dg.id','dg.code as dg_code','g.id','g.code as g_code');
+        ->select('ca.id','ca.name','ca.semester_id','ca.time_tp','ca.time_td','ca.time_course','ca.name_en',
+        'd.id','d.code as d_code','dg.id','dg.code as dg_code','g.id','g.code as g_code');
 
         if(isset($request->academic_year_id)){
             $course_annuals->where('ca.academic_year_id',$request->academic_year_id);
