@@ -12,9 +12,9 @@ class RoomController extends Controller
     {
         return Room::select('id', 'name', 'nb_desk', 'nb_chair', 'room_type_id', 'building_id')
             ->with('roomType:id,name', 'building:id,code')
-            ->orderBy('id', 'asc')
-            ->orderBy('room_type_id', 'asc')
-            ->orderBy('building_id', 'asc')
+            // ->orderBy('id', 'asc')
+            // ->orderBy('room_type_id', 'asc')
+            // ->orderBy('building_id', 'asc')
             ->paginate();
     }
     public function get_room_by_id($id){
