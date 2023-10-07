@@ -102,6 +102,7 @@ Route::prefix('timetable_slots')->group(function(){
 //     Route::get('/list',[GenderController::class, 'list']);
 // });
 
+
 // course_annual
 Route::prefix('course_annuals')->group(function(){
     Route::get('/get_course_annual',[CourseAnnualController::class, 'get_course_annual']);
