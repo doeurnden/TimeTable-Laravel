@@ -42,7 +42,7 @@ class TimeTableController extends Controller
     //         'updated_uid'       => 'required ',
     //         'created_at'        => 'required ',
     //         'updated_at'        => 'required ',
-            
+
     //         // Add more validation rules for other fields as needed
     //     ]);
 
@@ -79,7 +79,7 @@ class TimeTableController extends Controller
     //         'completed'         => 'required',
     //         'created_uid'       => 'required',
     //         'updated_uid'       => 'required',
-    //     ]); 
+    //     ]);
 
     //     $timeTable = TimeTable::find($id);
     //     if(!$timeTable){
@@ -110,7 +110,7 @@ class TimeTableController extends Controller
     //         return response()->json(['message' => 'Table not found'])
     //     }
     // }
-    
+
     public function getAll_TimeTable(Request $request)
     {
         $academicYearId     = $request->input('academic_year_id');
@@ -118,7 +118,7 @@ class TimeTableController extends Controller
         $degreeId           = $request->input('degree_id');
         $departmentOptionId = $request->input('option_id'); // Set to null initially
         $gradeId            = $request->input('grade_id');
-        $semesterId         = $request->input('semester_id' );
+        $semesterId         = $request->input('semester_id');
         $groupeId           = $request->input('group_id');
         $weekId             = $request->input('week_id');
 
@@ -147,17 +147,21 @@ class TimeTableController extends Controller
         if (isset($semesterId)) {
             $query->where('semester_id', $semesterId);
         }
-        if (isset($groupeId)){
-            $query->where('group_id',$groupeId);
+        if (isset($groupeId)) {
+            $query->where('group_id', $groupeId);
         }
         if (isset($weekId)) {
             $query->where('week_id', $weekId);
         }
 
         $timetables = $query->get();
-        
-        if(count($timetables)>0) return response()->json($timetables);
-        return $this->insertTimetableData($request);
+
+        if (count($timetables) > 0) return response()->json($timetables);
+
+        return (array)$this->insertTimetableData($request);
+        // try {
+        // } catch (\Throwable $th) {
+        // }
     }
 
     public function insertTimetableData(Request $request)
@@ -182,19 +186,22 @@ class TimeTableController extends Controller
             'semester_id'      => $semesterId,
             'group_id'         => $groupeId,
             'week_id'          => $weekId,
-            'created_uid'      =>$created_UID,
-            'updated_uid'      =>$updated_UID
+            'created_uid'      => $created_UID,
+            'updated_uid'      => $updated_UID
         ];
 
         if (isset($departmentOptionId)) {
             $dataToInsert['option_id'] = $departmentOptionId;
         }
-
+        try {
+            //code...
+            return Timetable::create($dataToInsert);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return;
+        }
         // Insert the data into the Timetable model
-        Timetable::create($dataToInsert);
 
-        return response()->json(['message' => 'Data inserted successfully']);
+        // return response()->json(['message' => 'Data inserted successfully']);
     }
-
-
-}        
+}

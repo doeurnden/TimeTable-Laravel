@@ -129,7 +129,7 @@ Route::get('/get_all_groups', [GroupController::class, 'getGroups']);
 // Route::post('/create_timetable', [TimeTableController::class, 'create']);
 // Route::put('/update_TimeTable/{id}',[TimeTableController::class,'update']);
 
-//@ Do on timetable
+Route::post('/createSlot',[SlotController::class,'createSlot']);
 Route::post('/query_and_post_timetables', [TimetableController::class, 'getAll_TimeTable']);
 
 //@ Get slot (timetable_slot join slot and join timetable)

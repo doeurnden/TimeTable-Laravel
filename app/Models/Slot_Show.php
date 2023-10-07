@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Slot_Show extends Model
 {
-    protected $table = 'slots'; 
+    protected $table = 'slots';
     protected $primaryKey = 'id';
 }

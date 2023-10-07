@@ -2,16 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SlotRequest;
 use App\Models\Course;
 use App\Models\Group;
 use App\Models\Lecturer;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\Slot;
+use App\Models\TimeTable;
+use App\Models\TimeTableSlot;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class SlotController extends Controller
 {
+    //testing create slot
+    public function createSlot(SlotRequest $request){
+        /**
+         * TODO:
+         * time_tp
+         * time_td
+         * time_course
+         * academic_year_id
+         * course_program_id
+         *
+         *
+         *
+         */
+        // select("course_annuals.*","courses.id as course_program_id");
+        $course=DB::table('courses')->where('id',$request->course_program_id)->get();
+        //slot
+        $slot = Slot::create($request->all());
+        //slot id
+        $timeableSlot=TimeTableSlot::create([...$request->all(),"slot_id"=>$slot->id]);
+
+        return response()->json($timeableSlot);
+    }
     //@List Slot
     public function list(Request $request){
         $timeTP             = $request->input('time_tp');
@@ -21,7 +47,7 @@ class SlotController extends Controller
         $semesterID         = $request->input('semester_id');
         $lecturerID         = $request->input('lecturer_id');
         $groupID            = $request->input('group_id');
-        $timetableID        = $request->input('timetable_id');  
+        $timetableID        = $request->input('timetable_id');
         $roomID             = $request->input('room_id');
 
         $query = Slot::query();
@@ -61,7 +87,7 @@ class SlotController extends Controller
     }
 
 
-    
+
     // @create
     public function create_slote(Request $request)
     {
@@ -77,7 +103,7 @@ class SlotController extends Controller
         $timeRemaining      = $request->input('time_remaining');
         $created_UID        = $request->input('created_uid');
         $write_UID          = $request->input('write_uid');
-        $timetableID        = $request->input('timetable_id',null);  
+        $timetableID        = $request->input('timetable_id',null);
         $roomID             = $request->input('room_id',null);
         $courseID           = $request->input('course_id',null);
 
@@ -141,10 +167,49 @@ class SlotController extends Controller
         if (!$slot) {
             return response()->json(['message' => 'Slot not found'], 404);
         }
-        
-        $slot->lecturer_id = $request->lecturer_id;
-        $slot->group_id = $request->group_id;
-        $slot->save();
+
+        // $slot->lecturer_id = $request->lecturer_id;
+        // $slot->group_id = $request->group_id;
+        // $slot->save();
+
+        // Get the updated data from the request
+        $timeTP             = $request->input('time_tp');
+        $timeTD             = $request->input('time_td');
+        $timeCourse         = $request->input('time_course');
+        $academicYearId     = $request->input('academic_year_id');
+        $courseProgramID    = $request->input('course_program_id');
+        $semesterID         = $request->input('semester_id');
+        $lecturerID         = $request->input('lecturer_id', null);
+        $groupID            = $request->input('group_id');
+        $timeUsed           = $request->input('time_used');
+        $timeRemaining      = $request->input('time_remaining');
+        $created_UID        = $request->input('created_uid');
+        $write_UID          = $request->input('write_uid');
+        $timetableID        = $request->input('timetable_id', null);
+        $roomID             = $request->input('room_id', null);
+        $courseID           = $request->input('course_id', null);
+
+        // Create an array with the updated data
+        $dataToUpdate = [
+            'time_tp'               => $timeTP,
+            'time_td'               => $timeTD,
+            'time_course'           => $timeCourse,
+            'academic_year_id'      => $academicYearId,
+            'course_program_id'     => $courseProgramID,
+            'semester_id'           => $semesterID,
+            'lecturer_id'           => $lecturerID,
+            'group_id'              => $groupID,
+            'time_used'             => $timeUsed,
+            'time_remaining'        => $timeRemaining,
+            'created_uid'           => $created_UID,
+            'write_uid'             => $write_UID,
+            'timetable_id'          => $timetableID,
+            'room_id'               => $roomID,
+            'course_id'             => $courseID
+        ];
+
+        // Update the slot with the new data
+        $slot->update($dataToUpdate);
 
         return response()->json(['message' => 'Slot updated successfully']);
     }
