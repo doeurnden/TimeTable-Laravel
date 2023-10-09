@@ -10,7 +10,7 @@ class TimeTable extends Model
     use HasFactory;
     protected $table = 'timetables';
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    // public $timestamps = false;
 
     protected $fillable = [
         'academic_year_id',
@@ -59,12 +59,12 @@ class TimeTable extends Model
     //     return $this->belongsTo(Semester::class, 'semester_id');
     // }
 
-    // public function week()
+    // public function week()/
     // {
     //     return $this->belongsTo(Week::class, 'week_id');
     // }
 
-    public function scopeSelectTimeTable($query){
-        return $query->select('id','academic_year_id','department_id','degree_id','grade_id','semester_id','group_id','week_id','completed','created_uid','updated_uid','created_at','updated_at',);
-    }
+    // public function scopeSelectTimeTable($query){
+    //     return $query->select('id','academic_year_id','department_id','degree_id','grade_id','semester_id','group_id','week_id','completed','created_uid','updated_uid','created_at','updated_at',);
+    // }
 }

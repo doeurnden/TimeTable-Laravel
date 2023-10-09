@@ -13,7 +13,7 @@ class GroupController extends Controller
             ->join('students as s', 's.id', '=', 'sa.student_id')
             ->leftJoin('group_student_annuals as ga', 'ga.student_annual_id', '=', 'sa.id')
             ->join('groups', 'groups.id', '=', 'ga.group_id')
-            ->select('groups.*');
+            ->select('  .*');
             if(isset($request->academic_year_id)){
                 $groups->where('sa.academic_year_id',$request->academic_year_id);
             }
@@ -24,7 +24,7 @@ class GroupController extends Controller
                 $groups->where('sa.grade_id',$request->grade_id);
             }
             if(isset($request->semester_id)){
-                $groups->where('sa.semester_id',$request->semester_id);
+                $groups->where('ga.semester_id',$request->semester_id);
             }
             $groups->whereNull('ga.department_id')
             ->groupBy('groups.id')

@@ -2,93 +2,233 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SlotRequest;
 use App\Models\Course;
 use App\Models\Group;
 use App\Models\Lecturer;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\Slot;
+use App\Models\TimeTable;
+use App\Models\TimeTableSlot;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class SlotController extends Controller
 {
-    public function get_all(){
-        $slot = Slot::get();
-        return response()->json($slot);
-    }
-    public function get_slot_id($id)
-    {
-        $slot = Slot::find($id);
+    //testing create slot
+    public function createSlot(SlotRequest $request){
+        /**
+         * TODO:
+         * time_tp
+         * time_td
+         * time_course
+         * academic_year_id
+         * course_program_id
+         *
+         *
+         *
+         */
+        // select("course_annuals.*","courses.id as course_program_id");
+        $course=DB::table('courses')->where('id',$request->course_program_id)->get();
+        //slot
+        $slot = Slot::create($request->all());
+        //slot id
+        $timeableSlot=TimeTableSlot::create([...$request->all(),"slot_id"=>$slot->id]);
 
-        if($slot){
-            return response()->json(['message' => 'success','slot'=>$slot]);
-        }
-        else{
-            return response()->json(['message' => 'slot '. $id. ' not found']);
-        }
+        return response()->json($timeableSlot);
     }
+    //@List Slot
+    public function list(Request $request){
+        $timeTP             = $request->input('time_tp');
+        $timeTD             = $request->input('time_td');
+        $academicYearId     = $request->input('academic_year_id');
+        $courseProgramID    = $request->input('course_program_id');
+        $semesterID         = $request->input('semester_id');
+        $lecturerID         = $request->input('lecturer_id');
+        $groupID            = $request->input('group_id');
+        $timetableID        = $request->input('timetable_id');
+        $roomID             = $request->input('room_id');
+
+        $query = Slot::query();
+
+        if(isset($timeTP)){
+            $query->where('time_tp',$timeTP);
+        }
+        if(isset($timeTD)){
+            $query->where('time_td',$timeTD);
+        }
+        if(isset($academicYearId)){
+            $query->where('academic_year_id',$academicYearId);
+        }
+        if(isset($courseProgramID)){
+            $query->where('course_program_id',$courseProgramID);
+        }
+        if(isset($semesterID)){
+            $query->where('semester_id',$semesterID);
+        }
+        if(isset($lecturerID)){
+            $query->where('lecturer_id',$lecturerID);
+        }
+        if(isset($groupID)){
+            $query->where('group_id',$groupID);
+        }
+        if(isset($timetableID)){
+            $query->where('timetable_id',$timetableID);
+        }
+        if(isset($roomID)){
+            $query->where('room_id',$roomID);
+        }
+
+        $slot = $query->get();
+
+        if(count($slot)>0)return response()->json($slot);
+        return $this->create_slote($request);
+    }
+
+
+
     // @create
-    public function create(Request $request)
+    public function create_slote(Request $request)
     {
-        $this->validate($request, [
-            'time_tp'               => 'required',
-            'time_td'               => 'required',
-            'time_course'           => 'required',
-            'academic_year_id'      => 'required',
-            'course_program_id'     => 'required',
-            'semester_id'           => 'required',
-            // 'lecturer_id'           => 'required',
-            'group_id'              => 'required',
-            // 'time_used'             => 'required',
-            // 'time_remaining'        => 'required',
-            // 'created_uid'           => 'required',
-            // 'write_uid'             => 'required'
-        ]);
+        $timeTP             = $request->input('time_tp');
+        $timeTD             = $request->input('time_td');
+        $timeCourse         = $request->input('time_course');
+        $academicYearId     = $request->input('academic_year_id');
+        $courseProgramID    = $request->input('course_program_id');
+        $semesterID         = $request->input('semester_id');
+        $lecturerID         = $request->input('lecturer_id',null);
+        $groupID            = $request->input('group_id');
+        $timeUsed           = $request->input('time_used');
+        $timeRemaining      = $request->input('time_remaining');
+        $created_UID        = $request->input('created_uid');
+        $write_UID          = $request->input('write_uid');
+        $timetableID        = $request->input('timetable_id',null);
+        $roomID             = $request->input('room_id',null);
+        $courseID           = $request->input('course_id',null);
 
-        $slot = new Slot;
-        $slot->time_tp                      = $request->time_tp;
-        $slot->time_td                      = $request->time_td;
-        $slot->time_course                  = $request->time_course;
-        $slot->academic_year_id             = $request->academic_year_id;
-        $slot->course_program_id            = $request->course_program_id;
-        $slot->semester_id                  = $request->semester_id;
-        $slot->lecturer_id                  = $request->lecturer_id;
-        $slot->group_id                     = $request->group_id;
-        $slot->time_used                    = $request->time_used;
-        $slot->time_remaining               = $request->time_remaining;
-        $slot->created_uid                  = $request->created_uid;
-        $slot->write_uid                    = $request->write_uid;
-        $slot->save();
+        $dataToInsert = [
+            'time_tp'               => $timeTP,
+            'time_td'               => $timeTD,
+            'time_course'           => $timeCourse,
+            'academic_year_id'      => $academicYearId,
+            'course_program_id'     => $courseProgramID,
+            'semester_id'           => $semesterID,
+            'lecturer_id'           => $lecturerID,
+            'group_id'              => $groupID,
+            'time_used'             => $timeUsed,
+            'time_remaining'        => $timeRemaining,
+            'created_uid'           => $created_UID,
+            'write_uid'             => $write_UID,
+            'timetable_id'          => $timetableID,
+            'room_id'               => $roomID,
+            'course_id'             => $courseID
+        ];
 
-        return response()->json(['message' => 'Slot created successfully', 'slot' => $slot]);
-    }
-    // @update
-    public function update(Request $request, $id)
-    {
-        $this->validate($request, [
-            'lecturer_id' => 'required',
-            'group_id' => 'required',
-        ]);
-
-        $slot = Slot::find($id);
-        if (!$slot) {
-            return response()->json(['message' => 'Slot not found!'], 404);
+        if (isset($lecturerID)) {
+            $dataToInsert['lecturer_id'] = $lecturerID;
         }
+        if (isset($timetableID)) {
+            $dataToInsert['timetable_id'] = $timetableID;
+        }
+        if (isset($roomID)) {
+            $dataToInsert['room_id'] = $roomID;
+        }
+        if (isset($courseID)) {
+            $dataToInsert['course_id'] = $courseID;
+        }
+        Slot::create($dataToInsert);
 
-        $slot->lecturer_id = $request->lecturer_id;
-        $slot->group_id = $request->group_id;
-        $slot->save();
-
-        return response()->json(['message' => 'Slot updated successfully', 'slot' => $slot]);
+        return response()->json(['message' => 'Slot created successfully']);
     }
-    // @delete
-    public function delete($id)
+
+    // @Get only one slot
+    public function get_slot($id)
     {
-        $slot = Slot::destroy($id);
-        if ($slot) {
-            return response()->json(['message' => 'Slot deleted successfully']);
-        } else {
+        // Retrieve the slot by its ID
+        $slot = Slot::find($id);
+
+        // Check if the slot exists
+        if (!$slot) {
             return response()->json(['message' => 'Slot not found'], 404);
         }
+
+        // Return the slot as a JSON response
+        return response()->json(['slot' => $slot]);
     }
+
+    // @update
+    public function update_slot(Request $request, $id)
+    {
+        // Retrieve the existing slot by its ID
+        $slot = Slot::find($id);
+
+        // Check if the slot exists
+        if (!$slot) {
+            return response()->json(['message' => 'Slot not found'], 404);
+        }
+
+        // $slot->lecturer_id = $request->lecturer_id;
+        // $slot->group_id = $request->group_id;
+        // $slot->save();
+
+        // Get the updated data from the request
+        $timeTP             = $request->input('time_tp');
+        $timeTD             = $request->input('time_td');
+        $timeCourse         = $request->input('time_course');
+        $academicYearId     = $request->input('academic_year_id');
+        $courseProgramID    = $request->input('course_program_id');
+        $semesterID         = $request->input('semester_id');
+        $lecturerID         = $request->input('lecturer_id', null);
+        $groupID            = $request->input('group_id');
+        $timeUsed           = $request->input('time_used');
+        $timeRemaining      = $request->input('time_remaining');
+        $created_UID        = $request->input('created_uid');
+        $write_UID          = $request->input('write_uid');
+        $timetableID        = $request->input('timetable_id', null);
+        $roomID             = $request->input('room_id', null);
+        $courseID           = $request->input('course_id', null);
+
+        // Create an array with the updated data
+        $dataToUpdate = [
+            'time_tp'               => $timeTP,
+            'time_td'               => $timeTD,
+            'time_course'           => $timeCourse,
+            'academic_year_id'      => $academicYearId,
+            'course_program_id'     => $courseProgramID,
+            'semester_id'           => $semesterID,
+            'lecturer_id'           => $lecturerID,
+            'group_id'              => $groupID,
+            'time_used'             => $timeUsed,
+            'time_remaining'        => $timeRemaining,
+            'created_uid'           => $created_UID,
+            'write_uid'             => $write_UID,
+            'timetable_id'          => $timetableID,
+            'room_id'               => $roomID,
+            'course_id'             => $courseID
+        ];
+
+        // Update the slot with the new data
+        $slot->update($dataToUpdate);
+
+        return response()->json(['message' => 'Slot updated successfully']);
+    }
+
+    // @delete
+    public function delete_slot($id)
+    {
+        // Retrieve the existing slot by its ID
+        $slot = Slot::find($id);
+
+        // Check if the slot exists
+        if (!$slot) {
+            return response()->json(['message' => 'Slot not found'], 404);
+        }
+
+        // Delete the slot
+        $slot->delete();
+
+        return response()->json(['message' => 'Slot deleted successfully']);
+    }
+
 }

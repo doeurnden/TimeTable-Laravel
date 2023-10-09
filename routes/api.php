@@ -21,6 +21,7 @@ use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\CourseAnnualController;
 use App\Http\Controllers\GenderController;
+use App\Http\Controllers\Slot_ShowController;
 use App\Http\Controllers\TimeTableSlotController;
 use App\Models\TimeTableSlot;
 
@@ -79,22 +80,28 @@ Route::prefix('timetables')->group(function () {
     Route::get('/list',[TimeTableController::class, 'get_all_timetable']);
     Route::get('/list/{id}',[TimeTableController::class, 'listByID']);
 });
+
+//@Do on Slot
+Route::prefix('slots')->group(function () {
+    Route::post('/query_and_post_slot',[SlotController::class, 'list']);
+    Route::get('/get_slots/{id}', [SlotController::class, 'get_slot']);
+    // Route::post('/create_slot',[SlotController::class, 'create_slote']);
+    Route::put('/update_slot/{id}', [SlotController::class, 'update_slot']);
+    Route::delete('/delete_slot/{id}', [SlotController::class, 'delete_slot']);
+});
+
+//@Do on timetable slot
 Route::prefix('timetable_slots')->group(function(){
     Route::post('/create',[TimeTableSlotController::class, 'create_timetable_slot']);
     Route::get('/read',[TimeTableSlotController::class, 'get_timetable_slot']);
     Route::post('/update/{id}',[TimeTableSlotController::class, 'update_timetable_slot']);
     Route::delete('/delete/{id}',[TimeTableSlotController::class, 'delete_timetable_slot']);
 });
-Route::prefix('slots')->group(function () {
-    Route::get('/list',[SlotController::class, 'list']);
-    Route::get('/list/{id}',[SlotController::class, 'get_slot_id']);
-    Route::post('/create',[SlotController::class, 'create']);
-    Route::get('/get_all',[SlotController::class, 'get_all']);
-});
 
 // Route::prefix('genders')->group(function(){
 //     Route::get('/list',[GenderController::class, 'list']);
 // });
+
 
 // course_annual
 Route::prefix('course_annuals')->group(function(){
@@ -117,7 +124,15 @@ Route::get('/get_all_weeks',[WeekController::class,'index']);
 
 Route::get('/get_all_groups', [GroupController::class, 'getGroups']);
 
-Route::get('/get_all_timeTable',[TimeTableController::class,'get_all_timetable']);
-Route::get('/get_one_groups/{id}',[TimeTableController::class,'get_one_timetable']);
-Route::post('/create_timetable', [TimeTableController::class, 'create']);
-Route::put('/update_TimeTable/{id}',[TimeTableController::class,'update']);
+// Route::get('/get_all_timeTable',[TimeTableController::class,'get_all_timetable']);
+// Route::get('/get_one_groups/{id}',[TimeTableController::class,'get_one_timetable']);
+// Route::post('/create_timetable', [TimeTableController::class, 'create']);
+// Route::put('/update_TimeTable/{id}',[TimeTableController::class,'update']);
+
+Route::post('/createSlot',[SlotController::class,'createSlot']);
+Route::post('/query_and_post_timetables', [TimetableController::class, 'getAll_TimeTable']);
+
+//@ Get slot (timetable_slot join slot and join timetable)
+
+Route::get('/get_slot_from_timetable_slote/{timetableId}', [Slot_ShowController::class, 'index']);
+

@@ -27,32 +27,35 @@ class Slot extends Model
         'write_uid',
         'created_at',
         'updated_at',
+        'timetable_id',
+        'room_id',
+        'course_id'
     ];
 
     // Relationships
-    public function academicYear()
-    {
-        return $this->belongsTo(AcademicYear::class, 'academic_year_id');//M:1
-    }
+    // public function academicYear()
+    // {
+    //     return $this->belongsTo(AcademicYear::class, 'academic_year_id');//M:1
+    // }
 
-    public function courseProgram()
-    {
-        return $this->belongsTo(Course::class, 'course_program_id');
-    }
+    // public function courseProgram()
+    // {
+    //     return $this->belongsTo(Course::class, 'course_program_id');
+    // }
 
-    public function semester()
-    {
-        return $this->belongsTo(Semester::class, 'semester_id');
-    }
+    // public function semester()
+    // {
+    //     return $this->belongsTo(Semester::class, 'semester_id');
+    // }
 
-    public function lecturer()
-    {
-        return $this->belongsTo(Lecturer::class, 'lect
-        urer_id');
-    }
+    // public function lecturer()
+    // {
+    //     return $this->belongsTo(Lecturer::class, 'lect
+    //     urer_id');
+    // }
 
-    public function group()
-    {
-        return $this->belongsTo(Group::class, 'group_id');
-    }
+    // public function group()
+    // {
+    //     return $this->belongsTo(Group::class, 'group_id');
+    // }
 }
