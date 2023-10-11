@@ -37,32 +37,51 @@ class CourseAnnualController extends Controller
     }
 
     public function get_courses(Request $request) {
-        $course_annuals = DB::table('course_annuals as ca')
-        ->leftJoin('departments as d','d.id','=','ca.department_id')
-        ->leftJoin('degrees as dg','dg.id','=','ca.degree_id')
-        ->leftJoin('grades as g','g.id', '=','ca.grade_id')
-        ->select('ca.id','ca.name','ca.semester_id','ca.time_tp','ca.time_td','ca.time_course','ca.name_en',
-        'd.id','d.code as d_code','dg.id','dg.code as dg_code','g.id','g.code as g_code');
+        try {
+            $course_annuals = DB::table('course_annuals as ca')
+                ->leftJoin('departments as d','d.id','=','ca.department_id')
+                ->leftJoin('degrees as dg','dg.id','=','ca.degree_id')
+                ->leftJoin('grades as g','g.id', '=','ca.grade_id')
+                ->select(
+                    'ca.id as course_id',
+                    'ca.name',
+                    'ca.semester_id',
+                    'ca.time_tp',
+                    'ca.time_td',
+                    'ca.time_course',
+                    'ca.name_en',
+                    'd.id as department_id',
+                    'd.code as department_code',
+                    'dg.id as degree_id',
+                    'dg.code as degree_code',
+                    'g.id as grade_id',
+                    'g.code as grade_code'
+                );
 
-        if(isset($request->academic_year_id)){
-            $course_annuals->where('ca.academic_year_id',$request->academic_year_id);
+            if(isset($request->academic_year_id)){
+                $course_annuals->where('ca.academic_year_id', $request->academic_year_id);
+            }
+            if(isset($request->department_id)){
+                $course_annuals->where('ca.department_id', $request->department_id);
+            }
+            if(isset($request->degree_id)){
+                $course_annuals->where('ca.degree_id', $request->degree_id);
+            }
+            if(isset($request->department_option_id)){
+                $course_annuals->where('ca.department_option_id', $request->department_option_id);
+            }
+            if(isset($request->grade_id)){
+                $course_annuals->where('ca.grade_id', $request->grade_id);
+            }
+            if(isset($request->semester_id)){
+                $course_annuals->where('ca.semester_id', $request->semester_id);
+            }
+
+            $query = $course_annuals->get();
+            return response()->json($query);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-        if(isset($request->department_id)){
-            $course_annuals->where('ca.department_id',$request->department_id);
-        }
-        if(isset($request->degree_id)){
-            $course_annuals->where('ca.degree_id',$request->degree_id);
-        }
-        if(isset($request->department_option_id)){
-            $course_annuals->where('ca.department_option_id',$request->department_option_id);
-        }
-        if(isset($request->grade_id)){
-            $course_annuals->where('ca.grade_id',$request->grade_id);
-        }
-        if(isset($request->semester_id)){
-            $course_annuals->where('ca.semester_id',$request->semester_id);
-        }
-        $query = $course_annuals->get();
-        return response()->json($query);
     }
+
 }
