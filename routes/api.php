@@ -20,6 +20,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\CourseAnnualController;
+use App\Http\Controllers\FieldRequireController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\Slot_ShowController;
 use App\Http\Controllers\TimeTableSlotController;
@@ -40,7 +41,7 @@ use App\Models\TimeTableSlot;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::get('fields',[FieldRequireController::class,"index"]);
 //get room api
 Route::prefix('rooms')->group(function () {
     Route::get('/get_room', [RoomController::class, 'get_room']);

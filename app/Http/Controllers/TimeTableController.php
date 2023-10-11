@@ -123,42 +123,40 @@ class TimeTableController extends Controller
         $weekId             = $request->input('week_id');
 
         // Check if data exists in the database
-        $query = Timetable::cacheFor(60*60);
-
+        $query = Timetable::query();
         if (isset($academicYearId)) {
-            $query->where('academic_year_id', $academicYearId);
+            $query=$query->where('academic_year_id', $academicYearId);
         }
 
         if (isset($departmentId)) {
-            $query->where('department_id', $departmentId);
+            $query=$query->where('department_id', $departmentId);
         }
 
         if (isset($degreeId)) {
-            $query->where('degree_id', $degreeId);
+            $query=$query->where('degree_id', $degreeId);
         }
         if (isset($departmentOptionId)) {
             // Use the departmentOption parameter to filter by department
-            $query->where('option_id', $departmentOptionId);
+            $query=$query->where('option_id', $departmentOptionId);
         }
         if (isset($gradeId)) {
-            $query->where('grade_id', $gradeId);
+            $query=$query->where('grade_id', $gradeId);
         }
 
         if (isset($semesterId)) {
-            $query->where('semester_id', $semesterId);
+           $query= $query->where('semester_id', $semesterId);
         }
         if (isset($groupeId)) {
-            $query->where('group_id', $groupeId);
+           $query= $query->where('group_id', $groupeId);
         }
         if (isset($weekId)) {
-            $query->where('week_id', $weekId);
+           $query= $query->where('week_id', $weekId);
         }
 
         $timetables = $query->get();
-
         if (count($timetables) > 0) return response()->json($timetables);
 
-        return (array)$this->insertTimetableData($request);
+        return response()->json([$this->insertTimetableData($request)]);
         // try {
         // } catch (\Throwable $th) {
         // }
@@ -195,10 +193,10 @@ class TimeTableController extends Controller
         }
         try {
             //code...
-            return Timetable::create($dataToInsert);
+            return collect(Timetable::create($dataToInsert))->toArray();
         } catch (\Throwable $th) {
             //throw $th;
-            return;
+            return $th;
         }
         // Insert the data into the Timetable model
 
