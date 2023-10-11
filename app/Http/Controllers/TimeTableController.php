@@ -116,7 +116,7 @@ class TimeTableController extends Controller
         $academicYearId     = $request->input('academic_year_id');
         $departmentId       = $request->input('department_id');
         $degreeId           = $request->input('degree_id');
-        $departmentOptionId = $request->input('option_id'); // Set to null initially
+        $departmentOptionId = $request->input('department_option_id'); // Set to null initially
         $gradeId            = $request->input('grade_id');
         $semesterId         = $request->input('semester_id');
         $groupeId           = $request->input('group_id');
@@ -167,7 +167,7 @@ class TimeTableController extends Controller
         $academicYearId     = $request->input('academic_year_id');
         $departmentId       = $request->input('department_id');
         $degreeId           = $request->input('degree_id');
-        $departmentOptionId = $request->input('option_id', null); // Set to null initially
+        $departmentOptionId = $request->input('department_option_id', null); // Set to null initially
         $gradeId            = $request->input('grade_id');
         $semesterId         = $request->input('semester_id');
         $groupeId           = $request->input('group_id');

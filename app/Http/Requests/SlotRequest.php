@@ -30,6 +30,17 @@ class SlotRequest extends FormRequest
             "timetable_id" => "required|integer",
             "room_id" => "integer|nullable",
             "academic_year_id"=>"required|integer",
+            // "timetable_id"              => 'required',
+            // "course_program_id"         => 'required',
+            // "slot_id"                   => 'required',
+            // "lecturer_id"               => 'required',
+            // "room_id"                   => 'required',
+            // "group_merge_id"            => 'required',
+            // "course_name"               => 'required',
+            "type"                      => 'required',
+            "durations"                 => 'required',
+            "start"                     => 'required',
+            "end"                       => 'required',
         ];
     }
     public function failedValidation(Validator $validator)

@@ -21,7 +21,7 @@ class FieldRequireController extends Controller
             "academic_years"=>AcademicYears::orderBy('id','desc')->get(),
             "departments"=>$department,
             "department_options"=>DepartmentOptions::get(),
-            "grades"=>Grades::get(),
+            "grades"=>Grades::orderBy('id','asc')->get(),
             "semesters"=>Semesters::get(),
             "degrees"=>Degrees::get(),
         ]);

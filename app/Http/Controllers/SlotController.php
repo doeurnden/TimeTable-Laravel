@@ -31,10 +31,10 @@ class SlotController extends Controller
          */
         // select("course_annuals.*","courses.id as course_program_id");
         $course=DB::table('courses')->where('id',$request->course_program_id)->get();
-        //slot
-        $slot = Slot::create($request->all());
+        //TODO: search then
+        $slot = Slot::create([...$request->all(),'created_uid'=>1]);
         //slot id
-        $timeableSlot=TimeTableSlot::create([...$request->all(),"slot_id"=>$slot->id]);
+        $timeableSlot=TimeTableSlot::create([...$request->all(),"slot_id"=>$slot->id,'created_uid'=>1]);
 
         return response()->json($timeableSlot);
     }

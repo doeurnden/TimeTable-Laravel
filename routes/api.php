@@ -87,6 +87,7 @@ Route::prefix('slots')->group(function () {
     Route::post('/query_and_post_slot',[SlotController::class, 'list']);
     Route::get('/get_slots/{id}', [SlotController::class, 'get_slot']);
     // Route::post('/create_slot',[SlotController::class, 'create_slote']);
+    Route::post('/create_slot',[SlotController::class, 'createSlot']);
     Route::put('/update_slot/{id}', [SlotController::class, 'update_slot']);
     Route::delete('/delete_slot/{id}', [SlotController::class, 'delete_slot']);
 });
