@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Rennokki\QueryCache\Traits\QueryCacheable;
 
 class Employee extends Model
 {
     use HasFactory;
-
+    use QueryCacheable;
+    public $cacheFor = 3600;
     public function gender()
     {
         return $this->belongsTo(Gender::class, 'gender_id');
