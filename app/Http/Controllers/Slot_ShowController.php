@@ -9,7 +9,7 @@ class Slot_ShowController extends Controller
 {
     public function index(Request $request, $timetableId)
     {
-        $slots = Slot_Show::select('slots.*')
+        $slots = Slot_Show::cacheFor(60*60)->select('slots.*')
                     ->join('timetable_slots', 'timetable_slots.slot_id', '=', 'slots.id')
                     ->join('timetables', 'timetables.id', '=', 'timetable_slots.timetable_id')
                     ->where('timetables.id', $timetableId)

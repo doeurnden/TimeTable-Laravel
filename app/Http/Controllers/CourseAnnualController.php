@@ -16,7 +16,7 @@ class CourseAnnualController extends Controller
 
     public function get_course_annual()
     {
-        return CourseAnnual::select(
+        return CourseAnnual::cacheFor(60*60)->select(
             'id',
             'name_en',
             'time_tp',
@@ -37,12 +37,14 @@ class CourseAnnualController extends Controller
     }
 
     public function get_courses(Request $request) {
-        $course_annuals = DB::table('course_annuals as ca')
-        ->leftJoin('departments as d','d.id','=','ca.department_id')
+        $course_annuals = CourseAnnual::cacheFor(60*60)->from('course_annuals as ca')->
+        leftJoin('departments as d','d.id','=','ca.department_id')
         ->leftJoin('degrees as dg','dg.id','=','ca.degree_id')
         ->leftJoin('grades as g','g.id', '=','ca.grade_id')
-        ->select('ca.id','ca.name','ca.semester_id','ca.time_tp','ca.time_td','ca.time_course','ca.name_en',
-        'd.id','d.code as d_code','dg.id','dg.code as dg_code','g.id','g.code as g_code');
+        ->leftJoin('courses','courses.id','=','ca.course_id')
+        ->select('courses.*');
+        // ->select('ca.course_id as id','ca.name','ca.semester_id','ca.time_tp','ca.time_td','ca.time_course','ca.name_en',
+        // 'd.id as d_id','d.code as d_code','dg.id','dg.code as dg_code','g.id','g.code as g_code');
 
         if(isset($request->academic_year_id)){
             $course_annuals->where('ca.academic_year_id',$request->academic_year_id);
@@ -62,7 +64,9 @@ class CourseAnnualController extends Controller
         if(isset($request->semester_id)){
             $course_annuals->where('ca.semester_id',$request->semester_id);
         }
-        $query = $course_annuals->get();
+        $query = $course_annuals
+        ->groupBy('courses.id')
+        ->get();
         return response()->json($query);
     }
 }

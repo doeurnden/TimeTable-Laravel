@@ -123,7 +123,7 @@ class TimeTableController extends Controller
         $weekId             = $request->input('week_id');
 
         // Check if data exists in the database
-        $query = Timetable::query();
+        $query = Timetable::cacheFor(60*60);
 
         if (isset($academicYearId)) {
             $query->where('academic_year_id', $academicYearId);

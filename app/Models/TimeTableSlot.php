@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Rennokki\QueryCache\Traits\QueryCacheable;
 
 class TimeTableSlot extends Model
 {
     use HasFactory;
     protected $table = 'timetable_slots';
-
+    use QueryCacheable;
+    public $cacheFor = 3600;
     protected $fillable = [
         'timetable_id',
         'course_program_id',
