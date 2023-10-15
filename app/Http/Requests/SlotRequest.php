@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+
 class SlotRequest extends FormRequest
 {
     /**
@@ -29,7 +30,7 @@ class SlotRequest extends FormRequest
             "lecturer_id" => "integer|nullable",
             "timetable_id" => "required|integer",
             "room_id" => "integer|nullable",
-            "academic_year_id"=>"required|integer",
+            "academic_year_id" => "required|integer",
             // "timetable_id"              => 'required',
             // "course_program_id"         => 'required',
             // "slot_id"                   => 'required',
@@ -41,6 +42,7 @@ class SlotRequest extends FormRequest
             "durations"                 => 'required',
             "start"                     => 'required',
             "end"                       => 'required',
+            "group_id" => "integer",
         ];
     }
     public function failedValidation(Validator $validator)
@@ -48,8 +50,8 @@ class SlotRequest extends FormRequest
         throw new HttpResponseException(response()->json([
             'success'   => false,
             'message'   => 'Validation errors',
-            'data'      => $validator->errors()
-        ]));
-    }
+            'data'      => $validator->errors(),
 
+        ], 422));
+    }
 }

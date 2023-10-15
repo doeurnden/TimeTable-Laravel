@@ -11,7 +11,6 @@ class TimeTableSlot extends Model
     use HasFactory;
     protected $table = 'timetable_slots';
     use QueryCacheable;
-    public $cacheFor = 3600;
     protected $fillable = [
         'timetable_id',
         'course_program_id',
@@ -37,7 +36,7 @@ class TimeTableSlot extends Model
 
     public function courseProgram()
     {
-        return $this->belongsTo(CourseProgram::class);
+        return $this->belongsTo(Course::class);
     }
 
     public function slot()
