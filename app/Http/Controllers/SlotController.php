@@ -19,13 +19,26 @@ use Illuminate\Support\Facades\Validator;
 class SlotController extends Controller
 {
     public function updateSlot($id,SlotRequestUpdate $request){
-        // TODO: update lecture
+
+        try {
+            DB::beginTransaction();
+            $timetableSlot=TimeTableSlot::with(['slot','mergeTimetableSlot'])->find($id);
+            $timetableSlot->slot()->update($request->all());
+            $timetableSlot->mergeTimetableSlot()->update($request->all());
+            $timetableSlot->update($request->all());
+            DB::commit();
+            return response()->json(['success'=>"update success"]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
     }
     public function deleteSlot($id){
         try {
             DB::beginTransaction();
             $timetableSlot = TimeTableSlot::find($id)->delete();
             DB::commit();
+            return response(["status"=>"Delete Slot Successful"]);
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollBack();

@@ -23,8 +23,25 @@ class SlotRequestUpdate extends FormRequest
     {
         return [
             //
-            "lecture_id"=>"integer",
-            "course_program_id"=>"integer",
+            "course_program_id" => "integer",
+            "semester_id" => "integer",
+            "lecturer_id" => "integer",
+            "timetable_id" => "integer",
+            "room_id" => "integer",
+
+            "academic_year_id" => "integer",
+            // "timetable_id"              => 'required',
+            // "course_program_id"         => 'required',
+            // "slot_id"                   => 'required',
+            // "lecturer_id"               => 'required',
+            // "room_id"                   => 'required',
+            // "group_merge_id"            => 'required',
+            // "course_name"               => 'required',
+            "type"                      => "string",
+            "durations"                 => "nullable",
+            "start"                     => 'nullable',
+            "end"                       => 'nullabel',
+            "group_id" => "integers",
         ];
     }
 }

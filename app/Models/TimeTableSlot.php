@@ -33,7 +33,9 @@ class TimeTableSlot extends Model
     {
         return $this->belongsTo(Timetable::class);
     }
-
+    public function mergeTimetableSlot(){
+        return $this->belongsTo(MergeTimeTableSlot::class,"group_merge_id","id");
+    }
     public function courseProgram()
     {
         return $this->belongsTo(Course::class);

@@ -134,7 +134,7 @@ Route::get('/get_all_groups', [GroupController::class, 'getGroups']);
 Route::post('/createSlot',[SlotController::class,'createSlot']);
 Route::post('/delete/{id}',[SlotController::class,'deleteSlot']);
 Route::post('/query_and_post_timetables', [TimetableController::class, 'getAll_TimeTable']);
-
+Route::post('/updateSlot/{id}',[SlotController::class,"updateSlot"]);
 //@ Get slot (timetable_slot join slot and join timetable)
 
 Route::get('/get_slot_from_timetable_slote/{timetableId}', [Slot_ShowController::class, 'index']);
