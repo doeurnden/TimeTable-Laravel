@@ -28,7 +28,6 @@ class Slot extends Model
         'write_uid',
         'created_at',
         'updated_at',
-        'timetable_id',
         'room_id',
         'course_id'
     ];

@@ -20,6 +20,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\CourseAnnualController;
+use App\Http\Controllers\FieldRequireController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\Slot_ShowController;
 use App\Http\Controllers\TimeTableSlotController;
@@ -40,7 +41,7 @@ use App\Models\TimeTableSlot;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::get('fields',[FieldRequireController::class,"index"]);
 //get room api
 Route::prefix('rooms')->group(function () {
     Route::get('/get_room', [RoomController::class, 'get_room']);
@@ -86,6 +87,7 @@ Route::prefix('slots')->group(function () {
     Route::post('/query_and_post_slot',[SlotController::class, 'list']);
     Route::get('/get_slots/{id}', [SlotController::class, 'get_slot']);
     // Route::post('/create_slot',[SlotController::class, 'create_slote']);
+    Route::post('/create_slot',[SlotController::class, 'createSlot']);
     Route::put('/update_slot/{id}', [SlotController::class, 'update_slot']);
     Route::delete('/delete_slot/{id}', [SlotController::class, 'delete_slot']);
 });
@@ -130,9 +132,9 @@ Route::get('/get_all_groups', [GroupController::class, 'getGroups']);
 // Route::put('/update_TimeTable/{id}',[TimeTableController::class,'update']);
 
 Route::post('/createSlot',[SlotController::class,'createSlot']);
+Route::post('/delete/{id}',[SlotController::class,'deleteSlot']);
 Route::post('/query_and_post_timetables', [TimetableController::class, 'getAll_TimeTable']);
-
+Route::post('/updateSlot/{id}',[SlotController::class,"updateSlot"]);
 //@ Get slot (timetable_slot join slot and join timetable)
 
 Route::get('/get_slot_from_timetable_slote/{timetableId}', [Slot_ShowController::class, 'index']);
-

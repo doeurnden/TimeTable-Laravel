@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Rennokki\QueryCache\Traits\QueryCacheable;
 
-class Slot_Show extends Model
+class MergeTimeTableSlot extends Model
 {
-    protected $table = 'slots';
+    use HasFactory;
     use QueryCacheable;
-    protected $primaryKey = 'id';
-
+    protected $table="merge_timetable_slots";
+    protected $fillable=[
+        'start','end'
+    ];
 }

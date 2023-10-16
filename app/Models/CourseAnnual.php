@@ -11,7 +11,6 @@ class CourseAnnual extends Model
     use HasFactory;
     protected $table = 'course_annuals';
     use QueryCacheable;
-    public $cacheFor = 3600;
 
 
     protected $fillable = [

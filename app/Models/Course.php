@@ -11,6 +11,7 @@ class Course extends Model
     use HasFactory;
     use QueryCacheable;
     public $cacheFor = 3600;
+
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'create_uid');

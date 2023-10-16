@@ -9,7 +9,6 @@ class TimeTable extends Model
 {
     use QueryCacheable;
     use HasFactory;
-    public $cacheFor = 3600;
     protected $table = 'timetables';
     protected $primaryKey = 'id';
     // public $timestamps = false;

@@ -11,7 +11,6 @@ class TimeTableSlot extends Model
     use HasFactory;
     protected $table = 'timetable_slots';
     use QueryCacheable;
-    public $cacheFor = 3600;
     protected $fillable = [
         'timetable_id',
         'course_program_id',
@@ -34,10 +33,12 @@ class TimeTableSlot extends Model
     {
         return $this->belongsTo(Timetable::class);
     }
-
+    public function mergeTimetableSlot(){
+        return $this->belongsTo(MergeTimeTableSlot::class,"group_merge_id","id");
+    }
     public function courseProgram()
     {
-        return $this->belongsTo(CourseProgram::class);
+        return $this->belongsTo(Course::class);
     }
 
     public function slot()

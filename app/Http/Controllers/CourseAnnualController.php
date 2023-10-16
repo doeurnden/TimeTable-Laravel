@@ -37,15 +37,12 @@ class CourseAnnualController extends Controller
     }
 
     public function get_courses(Request $request) {
-        $course_annuals = CourseAnnual::cacheFor(60*60)->from('course_annuals as ca')->
+        $course_annuals = CourseAnnual::from('course_annuals as ca')->
         leftJoin('departments as d','d.id','=','ca.department_id')
         ->leftJoin('degrees as dg','dg.id','=','ca.degree_id')
         ->leftJoin('grades as g','g.id', '=','ca.grade_id')
         ->leftJoin('courses','courses.id','=','ca.course_id')
         ->select('courses.*');
-        // ->select('ca.course_id as id','ca.name','ca.semester_id','ca.time_tp','ca.time_td','ca.time_course','ca.name_en',
-        // 'd.id as d_id','d.code as d_code','dg.id','dg.code as dg_code','g.id','g.code as g_code');
-
         if(isset($request->academic_year_id)){
             $course_annuals->where('ca.academic_year_id',$request->academic_year_id);
         }
