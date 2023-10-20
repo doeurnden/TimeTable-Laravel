@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+// use App\Models\Departments;
+
 use App\Models\Departments;
 use Illuminate\Http\Request;
 

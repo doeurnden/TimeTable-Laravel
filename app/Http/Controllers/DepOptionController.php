@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class DepOptionController extends Controller
 {
     public function index(){
-        $departmentOption = DepartmentOptions::all();
+        $departmentOption = DepartmentOptions::get();
         return response()->json($departmentOption);
     }
 }

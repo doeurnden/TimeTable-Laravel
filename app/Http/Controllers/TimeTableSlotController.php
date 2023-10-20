@@ -4,11 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TimeTableSlot;
+
+use function Laravel\Prompts\select;
+
 class TimeTableSlotController extends Controller
 {
     public function get_timetable_slot(){
-        $timetable_slots = TimeTableSlot::get();
-        return response()->json(['timetable_slot'=>$timetable_slots]);
+        $timetable_slots = TimeTableSlot::select(
+            'id',
+            'timetable_id',
+            'course_program_id',
+            'slot_id',
+            'lecturer_id',
+            'room_id',
+            'group_merge_id',
+            'course_name',
+            'type',
+            'durations',
+            'start',
+            'end'
+            )
+        ->with('timetable:id,group_id')
+        ->get();
+        return response()->json(['data'=>$timetable_slots]);
     }
 
     public function create_timetable_slot(Request $request){

@@ -8,7 +8,7 @@ use App\Models\Degrees;
 class DegreeController extends Controller
 {
     public function index(){
-        $degree = Degrees::all();
+        $degree = Degrees::cacheFor(3600)->get();
         // $degree = Degrees::SelectIdAndName()->get(); // Assuming you have a 'products' table
         return response()->json($degree);
     }

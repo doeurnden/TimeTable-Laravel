@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Rennokki\QueryCache\Traits\QueryCacheable;
 
 class TimeTableSlot extends Model
 {
     use HasFactory;
     protected $table = 'timetable_slots';
-
+    use QueryCacheable;
     protected $fillable = [
         'timetable_id',
         'course_program_id',
@@ -32,16 +33,19 @@ class TimeTableSlot extends Model
     {
         return $this->belongsTo(Timetable::class);
     }
-
+    public function mergeTimetableSlot(){
+        return $this->belongsTo(MergeTimeTableSlot::class,"group_merge_id","id");
+    }
     public function courseProgram()
     {
-        return $this->belongsTo(CourseProgram::class);
+        return $this->belongsTo(Course::class);
     }
 
     public function slot()
     {
         return $this->belongsTo(Slot::class);
     }
+
 
     public function lecturer()
     {

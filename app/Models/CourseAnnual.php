@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Rennokki\QueryCache\Traits\QueryCacheable;
 
 class CourseAnnual extends Model
 {
     use HasFactory;
     protected $table = 'course_annuals';
+    use QueryCacheable;
+
 
     protected $fillable = [
         'name', 'semester_id', 'created_at', 'updated_at', 'active', 'academic_year_id',

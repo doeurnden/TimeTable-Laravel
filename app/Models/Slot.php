@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Rennokki\QueryCache\Traits\QueryCacheable;
 
 class Slot extends Model
 {
@@ -11,7 +12,7 @@ class Slot extends Model
     protected $table = 'slots';
     protected $primaryKey = 'id';
     // public $timestamps = false;
-
+    use QueryCacheable;
     protected $fillable = [
         'time_tp',
         'time_td',
@@ -27,7 +28,6 @@ class Slot extends Model
         'write_uid',
         'created_at',
         'updated_at',
-        'timetable_id',
         'room_id',
         'course_id'
     ];
