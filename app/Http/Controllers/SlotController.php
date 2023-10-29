@@ -19,13 +19,12 @@ use Illuminate\Support\Facades\Validator;
 class SlotController extends Controller
 {
     public function updateSlot($id,SlotRequestUpdate $request){
-
         try {
             DB::beginTransaction();
             $timetableSlot=TimeTableSlot::with(['slot','mergeTimetableSlot'])->find($id);
-            $timetableSlot->slot()->update($request->all());
-            $timetableSlot->mergeTimetableSlot()->update($request->all());
             $timetableSlot->update($request->all());
+            $timetableSlot->mergeTimetableSlot()->update($request->only(['start','end']));
+            $timetableSlot->slot()->update($request->except(['start','end','duration']));
             DB::commit();
             return response()->json(['success'=>"update success"]);
         } catch (\Throwable $th) {
@@ -63,7 +62,6 @@ class SlotController extends Controller
         try {
             DB::beginTransaction();
             $course = Course::find($input['course_program_id']);
-            //TODO: search then
 
             if ($request->type == "Course") $input['time_course'] = $course->time_course;
             elseif ($request->type == "TP") $input['time_tp'] = $course->time_tp;

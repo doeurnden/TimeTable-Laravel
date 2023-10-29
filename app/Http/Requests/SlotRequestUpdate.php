@@ -11,7 +11,7 @@ class SlotRequestUpdate extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -39,8 +39,8 @@ class SlotRequestUpdate extends FormRequest
             // "course_name"               => 'required',
             "type"                      => "string",
             "durations"                 => "nullable",
-            "start"                     => 'nullable',
-            "end"                       => 'nullabel',
+            "start"                     => "date",
+            "end"                       => "date",
             "group_id" => "integers",
         ];
     }

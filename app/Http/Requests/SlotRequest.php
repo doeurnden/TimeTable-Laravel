@@ -45,7 +45,7 @@ class SlotRequest extends FormRequest
             "group_id" => "integer",
         ];
     }
-    public function failedValidation(Validator $validator)
+    public function failedValidation(Validator $validator):void
     {
         throw new HttpResponseException(response()->json([
             'success'   => false,
