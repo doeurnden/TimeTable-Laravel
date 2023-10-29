@@ -22,9 +22,9 @@ class SlotController extends Controller
         try {
             DB::beginTransaction();
             $timetableSlot=TimeTableSlot::with(['slot','mergeTimetableSlot'])->find($id);
-            $timetableSlot->update($request->all());
+            $timetableSlot->update($request->except(['id','lecturer_name','room_name']));
             $timetableSlot->mergeTimetableSlot()->update($request->only(['start','end']));
-            $timetableSlot->slot()->update($request->except(['start','end','duration']));
+            $timetableSlot->slot()->update($request->except(['start','end','duration','id','lecturer_name','room_name','room_id']));
             DB::commit();
             return response()->json(['success'=>"update success"]);
         } catch (\Throwable $th) {

@@ -16,7 +16,7 @@ class Slot_ShowController extends Controller
         //             ->where('timetables.id', $timetableId)
         //             ->get();
 
-        $timetableSlot = TimeTableSlot::with(['slot',"courseProgram"])->where('timetable_id',$timetableId)->get();
+        $timetableSlot = TimeTableSlot::with(['slot',"courseProgram","lecturer","room","room.building"])->where('timetable_id',$timetableId)->get();
         return  response()->json($timetableSlot);
     }
 }

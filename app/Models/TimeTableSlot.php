@@ -49,9 +49,8 @@ class TimeTableSlot extends Model
 
     public function lecturer()
     {
-        return $this->belongsTo(Lecturer::class);
+        return $this->belongsTo(Employee::class);
     }
-
     public function room()
     {
         return $this->belongsTo(Room::class);
